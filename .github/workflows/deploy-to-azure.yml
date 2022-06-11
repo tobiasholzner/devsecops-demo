@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - master
+name: Deploy to Azure
+
+jobs:
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@master
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.0.100
+    
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build with dotnet
+      run: dotnet build  src/sample-mvc.csproj --configuration Release
+    - name: dotnet publish
+      run: |
+        dotnet publish src/sample-mvc.csproj -c Release -o myapp 
+
+    - name: 'Run Azure webapp deploy action using publish profile credentials'
+      uses: azure/webapps-deploy@v1
+      with: 
+        app-name: github-action-demo
+        package: './myapp' 
