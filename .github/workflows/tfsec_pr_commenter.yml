@@ -1,9 +1,11 @@
-name: tfsec-pr-commenter
+name: "tfsec"
+
 on:
   pull_request:
+  
 jobs:
   tfsec:
-    name: tfsec PR commenter
+    name: tfsec
     runs-on: ubuntu-latest
 
     steps:
