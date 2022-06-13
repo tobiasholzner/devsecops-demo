@@ -1,0 +1,17 @@
+on:
+  schedule:
+    # Friday at 3pm (UTC) -> 5pm Rosenheim
+    - cron: '0 15 * * 5'
+  - workflow_dispatch
+    
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: scan the WebApp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.4.0
+        with:
+          target: 'https://www.zaproxy.org/'
