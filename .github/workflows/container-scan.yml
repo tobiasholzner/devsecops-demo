@@ -5,10 +5,21 @@ jobs:
   build-secure:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+      - uses: actions/checkout@master
     
-    - run: docker build . -t contoso.azurecr.io/k8sdemo:${{ github.sha }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+         
+      - name: Build WebApp
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}        
+          push: false
+          context: ./src/WebApp
+          file: ./src/WebApp/Dockerfile
+          build-args: VERSION_FOLDER=fred-version
       
-    - uses: Azure/container-scan@v0
-      with:
-        image-name: contoso.azurecr.io/k8sdemo:${{ github.sha }}
+      - uses: Azure/container-scan@v0
+        with:
+          image-name: contoso.azurecr.io/k8sdemo:${{ github.sha }}
