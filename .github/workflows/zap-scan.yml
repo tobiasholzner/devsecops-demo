@@ -9,9 +9,9 @@ on:
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
-    name: scan the WebApp
+    name: Scan the WebApp
     steps:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.7.0
         with:
-          target: 'https://whiteduck.de'
+          target: 'https://www.zaproxy.org/'
