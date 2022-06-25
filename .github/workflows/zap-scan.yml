@@ -1,9 +1,8 @@
 on:
   schedule:
     # Friday at 3pm (UTC) -> 5pm Rosenheim
-    - cron: '0 15 * * 5'
-
-    
+    - cron: '0 15 * * 6'
+   
 jobs:
   zap_scan:
     runs-on: ubuntu-latest
@@ -12,6 +11,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.4.0
+        uses: zaproxy/action-baseline@v0.7.0
         with:
           target: 'https://www.zaproxy.org/'
