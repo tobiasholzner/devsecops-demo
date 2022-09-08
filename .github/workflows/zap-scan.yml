@@ -1,9 +1,9 @@
 name: "ZAP"
 
 on:   
-  schedule:
+  # schedule:
     # Friday at 3pm (UTC) -> 5pm Rosenheim 
-    - cron: '0 15 * * 5'
+    # - cron: '0 15 * * 5'
   workflow_dispatch:
    
 jobs:
